@@ -62,7 +62,7 @@ public class OrderTests extends BaseUITest {
 
         orderPage.clickYesButton();
 
-        assertTrue("Окно об успешном заказе не отображается", orderPage.getSuccessOrderModal().isDisplayed());
+        assertTrue("Окно об успешном заказе не отображается", orderPage.isVisibleSuccessOrderModal());
     }
 
     @Test
@@ -86,6 +86,6 @@ public class OrderTests extends BaseUITest {
 
         orderPage.clickYesButton();
 
-        assertTrue("Окно об успешном заказе не отображается", orderPage.getSuccessOrderModal().isDisplayed());
+        assertTrue("Окно об успешном заказе не отображается", orderPage.isVisibleSuccessOrderModal());
     }
 }

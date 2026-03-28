@@ -118,5 +118,7 @@ public class OrderPage {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(successOrderMessage));
     }
 
-
+    public boolean isVisibleSuccessOrderModal() {
+        return getSuccessOrderModal().isDisplayed();
+    }
 }
