@@ -28,17 +28,12 @@ public class MainPage {
     private By answerLocator(int index) {
         return By.id("accordion__panel-" + index);
     }
+
 //  Локатор верхней кнопки Заказать
     private final By topOrderButton = By.xpath("//div[@class='Header_Nav__AGCXC']/button[contains(text(), 'Заказать')]");
 
 //  Локатор нижней кнопки Заказать
     private final By botOrderButton = By.xpath("//div[@class='Home_FinishButton__1_cWm']/button[contains(text(), 'Заказать')]");
-
-//  Локатор кнопки Статус заказа
-    private final By statusButton = By.className("Header_Link__1TAG7");
-
-//  Локатор кнопки Go
-    private final By goButton = By.xpath("//button[text()='Go!']");
 
 
     public MainPage(WebDriver driver) {
@@ -69,12 +64,6 @@ public class MainPage {
         return driver.findElement(answerLocator(index)).getText();
     }
 
-    public void scrollToBotOrderButton() {
-        WebElement botOrderBut = wait.until(ExpectedConditions.presenceOfElementLocated(botOrderButton));
-        Actions actions = new Actions(driver);
-        actions.moveToElement(botOrderBut).perform();
-    }
-
     public void clickBotOrderButton() {
         wait.until(ExpectedConditions.elementToBeClickable(botOrderButton)).click();
     }
@@ -82,14 +71,4 @@ public class MainPage {
     public void clickTopOrderButton() {
         wait.until(ExpectedConditions.elementToBeClickable(topOrderButton)).click();
     }
-
-    public void clickStatusButton() {
-        driver.findElement(statusButton).click();
-    }
-
-    public void clickGoButton() {
-        driver.findElement(goButton).click();
-    }
-
-
 }

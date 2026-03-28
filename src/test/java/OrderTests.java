@@ -1,12 +1,6 @@
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 import static org.junit.Assert.assertTrue;
 
@@ -49,8 +43,6 @@ public class OrderTests extends BaseUITest {
 
     @Test
     public void successOrderWithTopOrderButton() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-
 //  Открыть страницу
         mainPage.openPage();
 
@@ -62,72 +54,38 @@ public class OrderTests extends BaseUITest {
 
         orderPage.sendUserData(name, surname, address, metroName, phone);
 
-        driver.findElement(By.xpath("//button[contains(text(),'Далее')]")).click();
-
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@placeholder='* Когда привезти самокат']")));
+        orderPage.clickNextButton();
 
         orderPage.sendOrderData(date, duration, color, comment);
 
-        driver.findElement(By.xpath("//div[@class='Order_Buttons__1xGrp']//button[contains(text(),'Заказать')]")).click();
+        orderPage.clickOrderButton();
 
-        driver.findElement(By.xpath("//button[contains(text(),'Да')]")).click();
+        orderPage.clickYesButton();
 
-        WebElement successOrderModal = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='Order_Modal__YZ-d3']")));
-        assertTrue("Окно об успешном заказе не отображается", successOrderModal.isDisplayed());
+        assertTrue("Окно об успешном заказе не отображается", orderPage.getSuccessOrderModal().isDisplayed());
     }
 
     @Test
     public void successOrderWithBotOrderButton() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-
-//  Открыть страницу
+        //  Открыть страницу
         mainPage.openPage();
 
 //  Нажать кнопку принятия куки
         mainPage.clickCookieButton();
 
 //  Найти и нажать нижнюю кнопку Заказать
-        mainPage.scrollToBotOrderButton();
         mainPage.clickBotOrderButton();
 
         orderPage.sendUserData(name, surname, address, metroName, phone);
 
-        driver.findElement(By.xpath("//button[contains(text(),'Далее')]")).click();
-
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@placeholder='* Когда привезти самокат']")));
+        orderPage.clickNextButton();
 
         orderPage.sendOrderData(date, duration, color, comment);
 
-        driver.findElement(By.xpath("//div[@class='Order_Buttons__1xGrp']//button[contains(text(),'Заказать')]")).click();
+        orderPage.clickOrderButton();
 
-        driver.findElement(By.xpath("//button[contains(text(),'Да')]")).click();
+        orderPage.clickYesButton();
 
-        WebElement successOrderModal = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='Order_Modal__YZ-d3']")));
-        assertTrue("Окно об успешном заказе не отображается", successOrderModal.isDisplayed());
+        assertTrue("Окно об успешном заказе не отображается", orderPage.getSuccessOrderModal().isDisplayed());
     }
 }
-
-//    @Test
-//    public void errorOrderTest() {
-////  Открыть страницу
-//        mainPage.openPage();
-//
-////  Нажать кнопку принятия куки
-//        mainPage.clickCookieButton();
-//
-////  Найти и нажать кнопку "Статус заказа"
-//        mainPage.clickStatusButton();
-//
-////  Ввести несуществующий номер заказа в поле ввода номера заказа и поставить ожидание
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-//        WebElement inputField = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input[placeholder='Введите номер заказа']")));
-//        inputField.sendKeys("000");
-//
-////    Найти и нажать кнопку GO
-//        mainPage.clickGoButton();
-//
-////    Сравнить ФР и ОР
-//        WebElement errorImage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("img[alt='Not found']")));
-//        assertTrue("Сообщение об ошибке не отображается", errorImage.isDisplayed());
-//    }
-
